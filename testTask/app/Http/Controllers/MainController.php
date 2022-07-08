@@ -55,22 +55,19 @@ class MainController extends Controller
             'plate_num' => 'unique:cars',
         ]);
 
-        $myuser = new ClientModel();
-        $myuser->full_name = $req->input('full_name');
-        $myuser->phone_num = $req->input('phone_num');
-        $myuser->gender = $req->input('gender');
-        $myuser->address = $req->input('address');
-        $myuser->save();
+        $full_name = $req->input('full_name');
+        $phone_num = $req->input('phone_num');
+        $gender = $req->input('gender');
+        $address = $req->input('address');
+        DB::insert("INSERT INTO clients(full_name,phone_num,gender,address) VALUES (?,?,?,?)",[$full_name,$phone_num,$gender,$address]);
 
-        $newcar = new CarsModel();
-        $newcar->color = $req->input('color');
-        $newcar->model = $req->input('model');
-        $newcar->brand = $req->input('brand');
-        $newcar->plate_num = $req->input('plate_num');
-        $newcar->on_parking = $req->input('on_parking');
-        $newcar->client_id = $req->input('next_id');
-
-        $newcar->save();
+        $color = $req->input('color');
+        $model = $req->input('model');
+        $brand = $req->input('brand');
+        $plate_num = $req->input('plate_num');
+        $on_parking = $req->input('on_parking');
+        $client_id = $req->input('next_id');
+        DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
 
         return Redirect::to(url()->previous());
     }
@@ -112,17 +109,14 @@ class MainController extends Controller
             'plate_num' => 'unique:cars',
         ]);
 
-            $newcar = new CarsModel();
-            $newcar->color = $req->input('color');
-            $newcar->model = $req->input('model');
-            $newcar->brand = $req->input('brand');
-            $newcar->plate_num = $req->input('plate_num');
-            $newcar->on_parking = $req->input('on_parking');
-            $newcar->client_id = $req->input('client_id');
-    
-            $newcar->save();
-
-            return Redirect::to(url()->previous());
+        $color = $req->input('color');
+        $model = $req->input('model');
+        $brand = $req->input('brand');
+        $plate_num = $req->input('plate_num');
+        $on_parking = $req->input('on_parking');
+        $client_id = $req->input('next_id');
+        DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
+        return Redirect::to(url()->previous());
     }
 
     public function updateCar(Request $req)
@@ -135,6 +129,13 @@ class MainController extends Controller
         $id = $req->input('car_id');
         DB::update("UPDATE cars SET color = ?, model = ?, brand= ?,plate_num=?,on_parking = ? WHERE car_id=?",[$color,$model,$brand,$plate_num,$on_parking,$id]);
         return Redirect::to(url()->previous());
+    }
+
+    public function deleteUser($id)
+    {
+        DB::delete("DELETE FROM cars where cars.client_id = $id");
+        DB::delete("DELETE FROM clients where client_id=$id");
+        return redirect('/1');
     }
 
     public function deleteCar($id)

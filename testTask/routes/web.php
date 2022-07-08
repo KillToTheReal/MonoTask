@@ -29,6 +29,7 @@ Route::post('/updateCar','App\Http\Controllers\MainController@updateCar')->name(
 
 Route::get('/deleteCar/{id}','App\Http\Controllers\MainController@deleteCar')->name('deleteCar');
 
+Route::get('/deleteUser/{id}','App\Http\Controllers\MainController@deleteUser')->name('deleteUser');
 
 Route::get('/allCars/{page}','App\Http\Controllers\MainController@allCars')->name('allCars');
 

@@ -34,6 +34,7 @@
         <input type="text" value="{{$data[0][0]->address}}" placeholder="Optional" required name = "address" id ="address" class="form-control">
         <br><button  type="submit" class="btn btn-warning">Update client data</button>
     </form>
+        <a href="/deleteUser/{{$data[0][0]->client_id}}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete user(!)</a>
         <h3> Your cars </h3>
     @for($i=0; $i < count($data[0]); $i++)
     <form method="post" action="/updateCar" id="carForm{{$i}}">

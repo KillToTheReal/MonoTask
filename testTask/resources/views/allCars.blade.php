@@ -8,7 +8,7 @@
 @section('content')
 
 
-
+@if(count($data)> 0)
     <h1> Cars on parking </h1>
     <table class="table table-dark">
     @foreach($data as $el)
@@ -35,5 +35,7 @@
     </ul>
     
     @endif
-
+@else 
+<h1> There's no cars in a parking right now </h1>
+@endif
 @endsection

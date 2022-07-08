@@ -8,7 +8,7 @@
 @section('content')
 
 
-
+    @if(count($data) > 0)
     <h1> Main table </h1>
     <table class="table table-dark">
         <tr>
@@ -48,5 +48,8 @@
     </ul>
     
     @endif
-
+    @else 
+    <h1> There's no information in database to create a table </h1>
+    @endif
+    
 @endsection

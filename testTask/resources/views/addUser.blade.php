@@ -1,7 +1,7 @@
 @extends('pageTemplate')
 
 @section('pageTitle')
-    Add user page
+    Add client page
 @endsection
 
 
