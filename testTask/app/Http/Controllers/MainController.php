@@ -12,16 +12,34 @@ class MainController extends Controller
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
-        $data = DB::select("select clients.client_id,clients.full_name,clients.phone_num, cars.brand, cars.plate_num, cars.on_parking FROM
+        $data = DB::select("select clients.client_id,clients.full_name,clients.phone_num, cars.brand, cars.plate_num, cars.on_parking, cars.car_id FROM
         clients JOIN cars ON clients.client_id = cars.client_id
         ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
-        $btnsAmount = ceil(count($data) / $pageSize + 1);
+        $q = 0 ? count($data) % $pageSize == 0 : 1;
+        $btnsAmount = ceil((count($data) / $pageSize)+ $q);
         $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');
-
+        
         $prevpage = $page - 1 ? $page > 1 : 1;
         $nextpage = $page + 1 ? $page <= $btnsAmount : $page;
         $enc = json_encode($data,JSON_UNESCAPED_UNICODE);
         return view('main',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage]);
+    }
+
+    public function allCars($page = 1)
+    {
+        $pageSize = 5;
+        $offset = $pageSize * ($page - 1);
+        //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
+        $data = DB::select("select  cars.car_id, cars.brand, cars.model, cars.plate_num, clients.full_name FROM
+        clients JOIN cars ON clients.client_id = cars.client_id
+        WHERE cars.on_parking = 1 ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
+        $q = 0 ? count($data) % $pageSize == 0 : 1;
+        $btnsAmount = ceil((count($data) / $pageSize)+ $q) ? count($data)% $pageSize == 0:(int)(count($data) / $pageSize);
+        $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');
+        $prevpage = $page - 1 ? $page > 1 : 1;
+        $nextpage = $page + 1 ? $page <= $btnsAmount : $page;
+        $enc = json_encode($data,JSON_UNESCAPED_UNICODE);
+        return view('allCars',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage]);
     }
 
     public function addUserPage()
@@ -116,6 +134,12 @@ class MainController extends Controller
         $on_parking = $req->input('on_parking');
         $id = $req->input('car_id');
         DB::update("UPDATE cars SET color = ?, model = ?, brand= ?,plate_num=?,on_parking = ? WHERE car_id=?",[$color,$model,$brand,$plate_num,$on_parking,$id]);
+        return Redirect::to(url()->previous());
+    }
+
+    public function deleteCar($id)
+    {
+        DB::delete("DELETE from cars WHERE car_id = $id");
         return Redirect::to(url()->previous());
     }
 

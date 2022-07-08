@@ -11,6 +11,15 @@
 
     <h1> Main table </h1>
     <table class="table table-dark">
+        <tr>
+            <th>User ID</th>
+            <th>User name</th>
+            <th>User phone number</th>
+            <th>Car brand</th>
+            <th>Car plate number</th>
+            <th>Is car on parking</th>
+            <th>Car ID</th>
+        </tr>
     @foreach($data as $el)
         <tr>
         @foreach($el as $col)
@@ -23,7 +32,7 @@
         </td>
         
         <td>
-            <a href="/deleteClient" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a> 
+            <a href="/deleteCar/{{$el['car_id']}}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a> 
         </td>
         </tr>
     @endforeach

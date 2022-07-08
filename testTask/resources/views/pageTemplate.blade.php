@@ -17,7 +17,7 @@
         <span class="fs-4">MonoDigital task</span>
       </a>
       <nav class="d-inline-flex mt-2 ms-md-3">
-        <a class="me-3 py-2 text-white text-decoration-none" href="/allCars"> All Cars on Parking</a>
+        <a class="me-3 py-2 text-white text-decoration-none" href="/allCars/1"> All Cars on Parking</a>
         <a class="me-3 py-2 text-white text-decoration-none" href="/addUserPage"> Add User</a>
         <a class="me-3 py-2 text-white text-decoration-none" href="/addCarPage">Add new car</a>
       </nav>
