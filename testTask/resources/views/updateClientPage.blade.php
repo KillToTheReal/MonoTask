@@ -35,8 +35,8 @@
         <br><button  type="submit" class="btn btn-warning">Update client data</button>
     </form>
         <h3> Your cars </h3>
-        @for($i=0; $i < count($data[0]); $i++)
-    <form method="post" action="/updateCar" id="carForm">
+    @for($i=0; $i < count($data[0]); $i++)
+    <form method="post" action="/updateCar" id="carForm{{$i}}">
         @csrf
         <input type="hidden" value="{{$data[0][$i]->car_id}}" name="car_id" id="car_id">
         <h4>Brand</h4>
@@ -54,8 +54,8 @@
         </select>
         <br><button  type="submit" class="btn btn-warning">Update car data</button>
         <hr>
-        @endfor
     </form>
+    @endfor
 
     <form method="post" class="bg-6 md-6 sm-6" action="/addCar" id="userForm">
         @csrf

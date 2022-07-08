@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\{DB,Redirect};
 
 class MainController extends Controller
 {
-    public function main($page)
+    public function main($page = 1)
     {   
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
@@ -107,6 +107,16 @@ class MainController extends Controller
             return Redirect::to(url()->previous());
     }
 
-
+    public function updateCar(Request $req)
+    {
+        $color = $req->input('color');
+        $model = $req->input('model');
+        $brand = $req->input('brand');
+        $plate_num = $req->input('plate_num');
+        $on_parking = $req->input('on_parking');
+        $id = $req->input('car_id');
+        DB::update("UPDATE cars SET color = ?, model = ?, brand= ?,plate_num=?,on_parking = ? WHERE car_id=?",[$color,$model,$brand,$plate_num,$on_parking,$id]);
+        return Redirect::to(url()->previous());
+    }
 
 }

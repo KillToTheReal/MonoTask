@@ -13,10 +13,11 @@
 </head>
 <body class="bg-dark text-white">
     <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom text-white">
-      <a href="/" class="d-flex align-items-center text-white text-decoration-none">
+      <a href="/1" class="d-flex align-items-center text-white text-decoration-none">
         <span class="fs-4">MonoDigital task</span>
       </a>
       <nav class="d-inline-flex mt-2 ms-md-3">
+        <a class="me-3 py-2 text-white text-decoration-none" href="/allCars"> All Cars on Parking</a>
         <a class="me-3 py-2 text-white text-decoration-none" href="/addUserPage"> Add User</a>
         <a class="me-3 py-2 text-white text-decoration-none" href="/addCarPage">Add new car</a>
       </nav>

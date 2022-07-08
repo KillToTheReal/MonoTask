@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{page}','App\Http\Controllers\MainController@main')->name('main');
 
 Route::get('/updateClient/{id}', 'App\Http\Controllers\MainController@updateClientPage')->name('updateClientPage');
 
@@ -25,3 +24,7 @@ Route::post('/addCar','App\Http\Controllers\MainController@addCar')->name('addCa
 Route::post('/addClient','App\Http\Controllers\MainController@addClient')->name('Client');
 
 Route::post('/updateClient','App\Http\Controllers\MainController@updateClient')->name('updateClient');
+
+Route::post('/updateCar','App\Http\Controllers\MainController@updateCar')->name('updateCar');
+
+Route::get('/{page}','App\Http\Controllers\MainController@main')->name('main');
