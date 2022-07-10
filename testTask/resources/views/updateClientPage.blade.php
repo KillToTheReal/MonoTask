@@ -50,8 +50,10 @@
         <input type = "text" value="{{$data[0][$i]->plate_num}}" placeholder="Unique" required name = "plate_num" id ="plate_num" class="form-control">
         <h4>At parking?</h4>
         <select class="form-select" required name="on_parking" id="on_parking">
-            <option value="1">In</option>
-            <option value="0">Out</option>
+            <option value="1"  @if($data[0][$i]->on_parking ==True)
+                                 selected @endif >In</option>
+            <option value="0" @if($data[0][$i]->on_parking ==False)
+                                 selected @endif > Out</option>
         </select>
         <br><button  type="submit" class="btn btn-warning">Update car data</button>
         <hr>

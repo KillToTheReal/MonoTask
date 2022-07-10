@@ -9,7 +9,11 @@ class MainController extends Controller
 {
 
     public function changeParking(Request $req)
-    {
+    {   
+        $valid = $req->validate([
+            'client_id' =>'required',
+            'car_id' =>'required'
+        ]);
         $carId = $req->input('car_id');
         DB::update("UPDATE cars SET on_parking = NOT on_parking WHERE car_id = $carId ");
         return Redirect::to(url()->previous());
@@ -74,8 +78,9 @@ class MainController extends Controller
     }
 
     public function addClient(Request $req){
+        $nr = '[a-zA-Zа-яА-Я]';
         $valid = $req->validate([
-            'full_name' => 'min:3 | max:100',
+            'full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
             'phone_num' => 'regex:/\+7([0-9]){10}/ | unique:clients',
             'plate_num' => 'unique:cars',
         ]);
