@@ -7,8 +7,32 @@ use Illuminate\Support\Facades\{DB,Redirect};
 
 class MainController extends Controller
 {
+
+    public function changeParking(Request $req)
+    {
+        $carId = $req->input('car_id');
+        DB::update("UPDATE cars SET on_parking = NOT on_parking WHERE car_id = $carId ");
+        return Redirect::to(url()->previous());
+    }
+
+    public function fetch(Request $req)
+    { 
+        //Больше сделал чем понял. Почитать про аджакс
+        $select  = $req->get('select');
+        $value  = $req->get('value');
+        $dependent  = $req->get('dependent');
+        $data = DB::select("SELECT * FROM cars WHERE $select = $value");
+        $output = '<option value =""> Select car </option>';
+        foreach($data as $row)
+        {
+            $on =  $row->on_parking == True ? "On parking" : "Not on parking";
+            $output.='<option value ="'.$row->car_id.'"> Select car: '.$row->plate_num.' '.$row->color.' '.$row->brand.' .Currently '.$on.'</option>';
+        }
+        echo $output;
+    }
     public function main($page = 1)
     {   
+        //Размер страницы для пагинации
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
@@ -26,7 +50,8 @@ class MainController extends Controller
     }
 
     public function allCars($page = 1)
-    {
+    { 
+        $user_list = DB::select("SELECT client_id,full_name from clients order by client_id");
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
@@ -39,7 +64,7 @@ class MainController extends Controller
         $prevpage = $page - 1 ? $page > 1 : 1;
         $nextpage = $page + 1 ? $page <= $btnsAmount : $page;
         $enc = json_encode($data,JSON_UNESCAPED_UNICODE);
-        return view('allCars',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage]);
+        return view('allCars',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage,'user_list' => $user_list]);
     }
 
     public function addUserPage()

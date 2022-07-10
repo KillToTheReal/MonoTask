@@ -33,5 +33,12 @@ Route::get('/deleteUser/{id}','App\Http\Controllers\MainController@deleteUser')-
 
 Route::get('/allCars/{page}','App\Http\Controllers\MainController@allCars')->name('allCars');
 
-
 Route::get('/{page}','App\Http\Controllers\MainController@main')->name('main');
+
+Route::post('/changeParking','App\Http\Controllers\MainController@changeParking')->name('changeParking');
+
+Route::post('allCars/fetch','App\Http\Controllers\MainController@fetch')-> name('mainController.fetch');
+
+Route::get('', function(){
+ return redirect("/1");
+});
