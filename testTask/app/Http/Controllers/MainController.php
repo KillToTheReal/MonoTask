@@ -29,8 +29,8 @@ class MainController extends Controller
         $output = '<option value =""> Select car </option>';
         foreach($data as $row)
         {
-            $on =  $row->on_parking == True ? "On parking" : "Not on parking";
-            $output.='<option value ="'.$row->car_id.'"> Select car: '.$row->plate_num.' '.$row->color.' '.$row->brand.' .Currently '.$on.'</option>';
+            $on =  $row->on_parking == True ? "on parking" : "not on parking";
+            $output.='<option value ="'.$row->car_id.'"> Select car: '.$row->plate_num.' '.$row->color.' '.$row->brand.'. Currently '.$on.'</option>';
         }
         echo $output;
     }
