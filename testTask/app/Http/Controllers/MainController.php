@@ -59,7 +59,7 @@ class MainController extends Controller
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
-        $data = DB::select("select  cars.car_id, cars.brand, cars.model, cars.plate_num, clients.full_name FROM
+        $data = DB::select("SELECT  cars.car_id, cars.brand, cars.model, cars.plate_num, clients.full_name FROM
         clients JOIN cars ON clients.client_id = cars.client_id
         WHERE cars.on_parking = 1 ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
         $q = 0 ? count($data) % $pageSize == 0 : 1;
