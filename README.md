@@ -10,3 +10,6 @@
 - New model ``` php artisan make:model {modelName} -m ``` -m for migration file
 - Make DB tables from migration files ``` php artisan migrate ```
 
+Насчёт защиты от SQL-инъекций и XSS не совсем понял как на неё сделать упор. Методы DB::INSERT/UPDATE делаются через mysql PDO, считай само. 
+XSS атаки блокируются тегами Blade {{}}. Никакой отдельной работы делать не пришлось или же я не понял задание.
+
