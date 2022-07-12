@@ -64,11 +64,11 @@
         @csrf
         <h3> New car </h3>
         <h4>Brand</h4>
-        <input type = "text" required name = "brand" id ="brand" class="form-control">
+        <input type = "text" value="{{old('brand')}}" required name = "brand" id ="brand" class="form-control">
         <h4>Model</h4>
-        <input type = "text" required name = "model" id ="model" class="form-control">
+        <input type = "text" value="{{old('model')}}" required name = "model" id ="model" class="form-control">
         <h4>Color</h4>
-        <input type = "text" required name = "color" id ="color" class="form-control">
+        <input type = "text" value="{{old('color')}}" required name = "color" id ="color" class="form-control">
         <h4>Licence plate number</h4>
         <input type = "text" placeholder="Unique" required name = "plate_num" id ="plate_num" class="form-control">
         <h4>At parking?</h4>
@@ -76,7 +76,7 @@
             <option value="1" selected>In</option>
             <option value="0">Out</option>
         </select>    
-        <input type="hidden" value="{{$data[0][0]->client_id}}" name="client_id" id="client_id">
+        <input type="hidden" value="{{$data[0][0]->client_id}}" name="next_id" id="next_id">
         <br><button type="submit" class="btn btn-warning">Add new car</button>
     </form>
 

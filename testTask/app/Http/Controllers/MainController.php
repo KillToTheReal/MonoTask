@@ -73,8 +73,8 @@ class MainController extends Controller
 
     public function addUserPage()
     {
-        $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');
-        return view('addUser',["inc"=>$inc]);
+           
+        return view('addUser',[]);
     }
 
     public function addClient(Request $req){
@@ -96,7 +96,7 @@ class MainController extends Controller
         $brand = $req->input('brand');
         $plate_num = $req->input('plate_num');
         $on_parking = $req->input('on_parking');
-        $client_id = $req->input('next_id');
+        $client_id = DB::select('SELECT client_id from clients order by client_id desc limit 1')[0]->client_id;
         DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
 
         return Redirect::to(url()->previous());
