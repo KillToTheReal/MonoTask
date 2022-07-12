@@ -82,23 +82,23 @@ class MainController extends Controller
         $valid = $req->validate([
             'full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
             'phone_num' => 'regex:/\+7([0-9]){10}/ | unique:clients',
-            'plate_num' => 'unique:cars',
         ]);
-
         $full_name = $req->input('full_name');
         $phone_num = $req->input('phone_num');
         $gender = $req->input('gender');
         $address = $req->input('address');
         DB::insert("INSERT INTO clients(full_name,phone_num,gender,address) VALUES (?,?,?,?)",[$full_name,$phone_num,$gender,$address]);
-
-        $color = $req->input('color');
-        $model = $req->input('model');
-        $brand = $req->input('brand');
-        $plate_num = $req->input('plate_num');
-        $on_parking = $req->input('on_parking');
         $client_id = DB::select('SELECT client_id from clients order by client_id desc limit 1')[0]->client_id;
-        DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
 
+        for($i = 1; $i <=(int)$req->input('formsAmount');$i++)
+        {
+        $color = $req->input('color'.$i);
+        $model = $req->input('model'.$i);
+        $brand = $req->input('brand'.$i);
+        $plate_num = $req->input('plate_num'.$i);
+        $on_parking = $req->input('on_parking'.$i);
+        DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
+        }
         return Redirect::to(url()->previous());
     }
 

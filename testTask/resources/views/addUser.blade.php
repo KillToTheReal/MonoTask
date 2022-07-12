@@ -34,19 +34,46 @@
 
         <h3> Your car </h3>
         <h4>Brand</h4>
-        <input type = "text" value="{{old('brand')}}" required name = "brand" id ="brand" class="form-control">
+        <input type = "text" value="{{old('brand1')}}" required name = "brand1" id ="brand" class="form-control">
         <h4>Model</h4>
-        <input type = "text" value="{{old('model')}}" required name = "model" id ="model" class="form-control">
+        <input type = "text" value="{{old('model1')}}" required name = "model1" id ="model" class="form-control">
         <h4>Color</h4>
-        <input type = "text" value="{{old('color')}}" required name = "color" id ="color" class="form-control">
+        <input type = "text" value="{{old('color1')}}" required name = "color1" id ="color" class="form-control">
         <h4>Licence plate number</h4>
-        <input type = "text" placeholder="Unique" value="{{old('plate_num')}}" required name = "plate_num" id ="plate_num" class="form-control">
+        <input type = "text" placeholder="Unique" value="{{old('plate_num1')}}" required name = "plate_num1" id ="plate_num" class="form-control">
         <h4>At parking?</h4>
-        <select class="form-select" name="on_parking" id ="on_parking">
+        <select class="form-select" name="on_parking1" id ="on_parking">
             <option value="1" selected>In</option>
             <option value="0">Out</option>
         </select>
+        <div id="afterForms"></div>
+        <input type = "hidden" name="formsAmount" value="1" id="formsAmount">
+
         <br><button  type="submit" class="btn btn-warning">Send your form</button>
     </form>
+    <button class="btn btn-primary" id="adder"> + </button>
 
+
+    <script>
+        var forms = 1;
+        var amount = document.getElementById("formsAmount");
+        var target = document.getElementById("adder");
+        var newForm = document.getElementById("afterForms");
+        console.log(target);
+        target.addEventListener('click',function()
+        {
+            forms++;
+            newForm.innerHTML+=CarTemplate(forms);
+            amount.value = forms;
+        });
+        function CarTemplate(number){
+            return "<h3> Another car </h3>"+
+            "<h4> Color </h4><input type = \"text\" value=\"{{old('color"+number+"')}} \" required name = \"color"+number+"\" class=\"form-control\">"+
+            "<h4> Brand </h4><input type = \"text\" value=\"{{old('brand"+number+"')}} \" required name = \"brand"+number+"\" class=\"form-control\">"+
+            "<h4> Model </h4><input type = \"text\" value=\"{{old('model"+number+"')}} \" required name = \"model"+number+"\" class=\"form-control\">"+
+            "<h4> License plate number </h4> <input type = \"text\" value=\"{{old('plate_num"+number+"')}} \" required name = \"plate_num"+number+"\" class=\"form-control\">"+
+            "<h4>At parking?</h4> <select class=\"form-select\" name=\"on_parking"+number+"\" id =\"on_parking\"> <option value=\"1\" selected>In</option><option value=\"0\">Out</option> </select>"
+            ;
+        }
+    </script>
 @endsection
