@@ -88,12 +88,11 @@
         });
         function CarTemplate(number){
             return "<h3> Car number "+number+" </h3>"+
-            "<h4> Color </h4><input type = \"text\" value=\"{{old('color["+number+"]')}} \" required name = \"color[]\" class=\"form-control\">"+
-            "<h4> Brand </h4><input type = \"text\" value=\"{{old('brand"+number+"')}} \" required name = \"brand[]\" class=\"form-control\">"+
-            "<h4> Model </h4><input type = \"text\" value=\"{{old('model"+number+"')}} \" required name = \"model[]\" class=\"form-control\">"+
-            "<h4> License plate number </h4> <input type = \"text\" value=\"{{old('plate_num"+number+"')}} \" required name = \"plate_num[]\" class=\"form-control\">"+
-            "<h4>At parking?</h4> <select class=\"form-select\" name=\"on_parking[]\" id =\"on_parking\"> <option value=\"1\" selected>In</option><option value=\"0\">Out</option> </select>"
-            ;
+            "<h4> Brand </h4><input type = \"text\" id=\"Brand"+number+"\"  required name = \"brand[]\" class=\"form-control\">"+
+            "<h4> Model </h4><input type = \"text\" id=\"Model"+number+"\"   required name = \"model[]\" class=\"form-control\">"+
+            "<h4> Color </h4><input type = \"text\"  id=\"Color"+number+"\" required name = \"color[]\" class=\"form-control\">"+
+            "<h4> License plate number </h4> id=\"License"+number+"\" <input type = \"text\" required name = \"plate_num[]\" class=\"form-control\">"+
+            "<h4>At parking?</h4> <select class=\"form-select\" id=\"on_parking"+number+"\" name=\"on_parking[]\"> <option value=\"1\" selected>In</option><option value=\"0\">Out</option> </select>";
         }
     </script>
 @endsection
