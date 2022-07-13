@@ -40,15 +40,16 @@ class MainController extends Controller
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
+        $fulldata = DB::Select("SELECT clients.client_id, car_id from clients join cars on clients.client_id = cars.client_id");
         $data = DB::select("SELECT clients.client_id,clients.full_name,clients.phone_num, cars.brand, cars.plate_num, cars.on_parking, cars.car_id FROM
         clients JOIN cars ON clients.client_id = cars.client_id
         ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
-        $q = 0 ? count($data) % $pageSize == 0 : 1;
-        $btnsAmount = ceil((count($data) / $pageSize)+ $q);
+        $btnsAmount = ceil((count($fulldata) / $pageSize));
+        echo($btnsAmount);
         $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');
         
-        $prevpage = $page - 1 ? $page > 1 : 1;
-        $nextpage = $page + 1 ? $page <= $btnsAmount : $page;
+        $prevpage = $page > 1 ? $page - 1 : 1;
+        $nextpage = $page < $btnsAmount ? $page + 1 : $page;
         $enc = json_encode($data,JSON_UNESCAPED_UNICODE);
         return view('main',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage]);
     }
@@ -58,15 +59,16 @@ class MainController extends Controller
         $user_list = DB::select("SELECT client_id,full_name from clients order by client_id");
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
+        $fulldata = DB::Select("SELECT clients.client_id, car_id from clients join cars on clients.client_id = cars.client_id WHERE cars.on_parking=1");
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
         $data = DB::select("SELECT  cars.car_id, cars.brand, cars.model, cars.plate_num, clients.full_name FROM
         clients JOIN cars ON clients.client_id = cars.client_id
         WHERE cars.on_parking = 1 ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
-        $q = 0 ? count($data) % $pageSize == 0 : 1;
-        $btnsAmount = ceil((count($data) / $pageSize)+ $q) ? count($data)% $pageSize == 0:(int)(count($data) / $pageSize);
+
+        $btnsAmount = count($fulldata)% $pageSize == 0 ? ceil((count($fulldata) / $pageSize)):(int)(count($fulldata) / $pageSize);
         $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');
-        $prevpage = $page - 1 ? $page > 1 : 1;
-        $nextpage = $page + 1 ? $page <= $btnsAmount : $page;
+        $prevpage = $page > 1 ? $page - 1 : 1;
+        $nextpage = $page < $btnsAmount ? $page + 1 : $page;
         $enc = json_encode($data,JSON_UNESCAPED_UNICODE);
         return view('allCars',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage,'user_list' => $user_list]);
     }

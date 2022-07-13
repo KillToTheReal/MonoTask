@@ -25,7 +25,6 @@
     @endforeach
     </table>
     @if($btns > 1)
-    
     <ul class="pagination">
         <li class="page-item"><a class="page-link" href="/allCars/{{$prev}}">Previous</a></li>
         @for($i = 1; $i <= $btns; $i++)
