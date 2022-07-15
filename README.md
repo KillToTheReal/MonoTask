@@ -1,7 +1,6 @@
 # MonoTask
 
 ## Задание: https://www.evernote.com/l/AL7WZoZ6SDFGH6BJ-5QoyAN2KianRLsKKvg 
-(Если это в публичной репе хранить нельзя жду поправок я удалю)
 
 ## БД развернута на докере: https://hub.docker.com/_/mysql
 ## Do not forget
