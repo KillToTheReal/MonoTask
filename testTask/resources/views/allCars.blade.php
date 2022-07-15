@@ -11,6 +11,14 @@
 @if(count($data)> 0)
     <h1> Cars on parking </h1>
     <table class="table table-dark">
+        <tr>
+            <th>Car ID</th>
+            <th>Car Brand</th>
+            <th>Car Model</th>
+            <th>License Plate Number</th>
+            <th>Owner Name</th>
+            <th>Delete car</th>
+        </tr>
     @foreach($data as $el)
         <tr>
         @foreach($el as $col)
@@ -91,7 +99,7 @@
                 console.log("Value:"+value);
 
                 $.ajax({
-                    url:"{{route('mainController.fetch')}}",
+                    url:"{{route('carController.fetch')}}",
                     method: "POST",
                     data:{select:select, value:value, _token:_token,
                     dependent:dependent},

@@ -19,23 +19,23 @@ Route::get('/addUserPage', 'App\Http\Controllers\MainController@addUserPage')->n
 //Метод формы выше
 Route::post('/addClient','App\Http\Controllers\MainController@addClient')->name('Client');
 //Форма добавления Машины
-Route::get('/addCarPage', 'App\Http\Controllers\MainController@addCarPage')->name('addCarPage');
+Route::get('/addCarPage', 'App\Http\Controllers\CarController@addCarPage')->name('addCarPage');
 //Метод формы выше
-Route::post('/addCar','App\Http\Controllers\MainController@addCar')->name('addCar');
+Route::post('/addCar','App\Http\Controllers\CarController@addCar')->name('addCar');
 //Страница обновления данных клиента
 Route::get('/updateClient/{id}', 'App\Http\Controllers\MainController@updateClientPage')->name('updateClientPage');
 // Обновление данных
 Route::post('/updateClient','App\Http\Controllers\MainController@updateClient')->name('updateClient');
-Route::post('/updateCar','App\Http\Controllers\MainController@updateCar')->name('updateCar');
-Route::post('/changeParking','App\Http\Controllers\MainController@changeParking')->name('changeParking');
+Route::post('/updateCar','App\Http\Controllers\CarController@updateCar')->name('updateCar');
+Route::post('/changeParking','App\Http\Controllers\CarController@changeParking')->name('changeParking');
 
 //Удаление данных
-Route::get('/deleteCar/{id}','App\Http\Controllers\MainController@deleteCar')->name('deleteCar');
+Route::get('/deleteCar/{id}','App\Http\Controllers\CarController@deleteCar')->name('deleteCar');
 Route::get('/deleteUser/{id}','App\Http\Controllers\MainController@deleteUser')->name('deleteUser');
 
 //Страница вывода стоянки. Вторая штука для AJAX метода.
-Route::get('/allCars/{page}','App\Http\Controllers\MainController@allCars')->name('allCars');
-Route::post('allCars/fetch','App\Http\Controllers\MainController@fetch')-> name('mainController.fetch');
+Route::get('/allCars/{page}','App\Http\Controllers\CarController@allCars')->name('allCars');
+Route::post('allCars/fetch','App\Http\Controllers\CarController@fetch')-> name('carController.fetch');
 
 
 // Внизу потому что /{page} оверрайдит все остальные /* теги.

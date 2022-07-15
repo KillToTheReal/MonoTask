@@ -8,75 +8,31 @@ use Illuminate\Support\Facades\{DB,Redirect};
 class MainController extends Controller
 {
 
-    public function changeParking(Request $req)
-    {   
-        $valid = $req->validate([
-            'client_id' =>'required',
-            'car_id' =>'required'
-        ]);
-        $carId = $req->input('car_id');
-        DB::update("UPDATE cars SET on_parking = NOT on_parking WHERE car_id = $carId ");
-        return Redirect::to(url()->previous());
-    }
 
-    public function fetch(Request $req)
-    { 
-        //Больше сделал чем понял. Почитать про аджакс
-        $select  = $req->get('select');
-        $value  = $req->get('value');
-        $dependent  = $req->get('dependent');
-        $data = DB::select("SELECT * FROM cars WHERE $select = $value");
-        $output = '<option value =""> Select car </option>';
-        foreach($data as $row)
-        {
-            $on =  $row->on_parking == True ? "on parking" : "not on parking";
-            $output.='<option value ="'.$row->car_id.'"> Select car: '.$row->plate_num.' '.$row->color.' '.$row->brand.'. Currently '.$on.'</option>';
-        }
-        echo $output;
-    }
+
+   
     public function main($page = 1)
     {   
         //Размер страницы для пагинации
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
-        $fulldata = DB::Select("SELECT clients.client_id, car_id from clients join cars on clients.client_id = cars.client_id");
+        $fulldata = DB::select("select COUNT(*) as count from clients join cars on clients.client_id = cars.client_id")[0]->count;
+        //Разделение данных, если здесь писать COUNT нужно было бы в любом случае делать группировку и считать длину массивов, строчка выше для того чтобы в одну переменную пихнуть всю длину данных разом
         $data = DB::select("SELECT clients.client_id,clients.full_name,clients.phone_num, cars.brand, cars.plate_num, cars.on_parking, cars.car_id FROM
         clients JOIN cars ON clients.client_id = cars.client_id
         ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
-        $btnsAmount = ceil((count($fulldata) / $pageSize));
-        echo($btnsAmount);
-        $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');
-        
+
+        $btnsAmount = ceil(($fulldata / $pageSize));
         $prevpage = $page > 1 ? $page - 1 : 1;
         $nextpage = $page < $btnsAmount ? $page + 1 : $page;
         $enc = json_encode($data,JSON_UNESCAPED_UNICODE);
-        return view('main',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage]);
-    }
-
-    public function allCars($page = 1)
-    { 
-        $user_list = DB::select("SELECT client_id,full_name from clients order by client_id");
-        $pageSize = 5;
-        $offset = $pageSize * ($page - 1);
-        $fulldata = DB::Select("SELECT clients.client_id, car_id from clients join cars on clients.client_id = cars.client_id WHERE cars.on_parking=1");
-        //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
-        $data = DB::select("SELECT  cars.car_id, cars.brand, cars.model, cars.plate_num, clients.full_name FROM
-        clients JOIN cars ON clients.client_id = cars.client_id
-        WHERE cars.on_parking = 1 ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
-
-        $btnsAmount = count($fulldata)% $pageSize == 0 ? ceil((count($fulldata) / $pageSize)):(int)(count($fulldata) / $pageSize);
-        $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');
-        $prevpage = $page > 1 ? $page - 1 : 1;
-        $nextpage = $page < $btnsAmount ? $page + 1 : $page;
-        $enc = json_encode($data,JSON_UNESCAPED_UNICODE);
-        return view('allCars',["data" =>json_decode($enc,true),"inc"=>$inc, 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage,'user_list' => $user_list]);
+        return view('main',["data" =>json_decode($enc,true), 'btns'=>$btnsAmount, 'prev'=>$prevpage, 'next'=>$nextpage]);
     }
 
     public function addUserPage()
     {
-           
-        return view('addUser',[]);
+        return view('addUser');
     }
 
     public function addClient(Request $req){
@@ -134,39 +90,6 @@ class MainController extends Controller
         return view('updateClientPage', ['data'=>[$req]]);
     }
 
-    public function addCarPage(){
-        $clients = DB::select('SELECT client_id, full_name from clients');
-        return view('addCar',['cl' => $clients]);
-    }
-
-    public function addCar(Request $req){
-        $valid = $req->validate([
-          
-            'plate_num' => 'unique:cars',
-        ]);
-
-        $color = $req->input('color');
-        $model = $req->input('model');
-        $brand = $req->input('brand');
-        $plate_num = $req->input('plate_num');
-        $on_parking = $req->input('on_parking');
-        $client_id = $req->input('next_id');
-        DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
-        return Redirect::to(url()->previous());
-    }
-
-    public function updateCar(Request $req)
-    {
-        $color = $req->input('color');
-        $model = $req->input('model');
-        $brand = $req->input('brand');
-        $plate_num = $req->input('plate_num');
-        $on_parking = $req->input('on_parking');
-        $id = $req->input('car_id');
-        DB::update("UPDATE cars SET color = ?, model = ?, brand= ?,plate_num=?,on_parking = ? WHERE car_id=?",[$color,$model,$brand,$plate_num,$on_parking,$id]);
-        return Redirect::to(url()->previous());
-    }
-
     public function deleteUser($id)
     {
         DB::delete("DELETE FROM cars where cars.client_id = $id");
@@ -174,10 +97,6 @@ class MainController extends Controller
         return redirect('/1');
     }
 
-    public function deleteCar($id)
-    {
-        DB::delete("DELETE from cars WHERE car_id = $id");
-        return Redirect::to(url()->previous());
-    }
+    
 
 }

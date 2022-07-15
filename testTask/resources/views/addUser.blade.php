@@ -83,7 +83,7 @@
         target.addEventListener('click',function()
         {
             forms++;
-            newForm.innerHTML+=CarTemplate(forms);
+            newForm.insertAdjacentHTML('beforeend',CarTemplate(forms));
             amount.value = forms;
         });
         function CarTemplate(number){
@@ -91,7 +91,7 @@
             "<h4> Brand </h4><input type = \"text\" id=\"Brand"+number+"\"  required name = \"brand[]\" class=\"form-control\">"+
             "<h4> Model </h4><input type = \"text\" id=\"Model"+number+"\"   required name = \"model[]\" class=\"form-control\">"+
             "<h4> Color </h4><input type = \"text\"  id=\"Color"+number+"\" required name = \"color[]\" class=\"form-control\">"+
-            "<h4> License plate number </h4> id=\"License"+number+"\" <input type = \"text\" required name = \"plate_num[]\" class=\"form-control\">"+
+            "<h4> License plate number </h4>  <input id=\"License"+number+"\" type = \"text\" required name = \"plate_num[]\" class=\"form-control\">"+
             "<h4>At parking?</h4> <select class=\"form-select\" id=\"on_parking"+number+"\" name=\"on_parking[]\"> <option value=\"1\" selected>In</option><option value=\"0\">Out</option> </select>";
         }
     </script>
