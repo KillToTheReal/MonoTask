@@ -12,6 +12,8 @@
 - New controller ``` php artisan make:controller {controllerName}Controller ```
 - New model ``` php artisan make:model {modelName} -m ``` -m for migration file
 - Make DB tables from migration files ``` php artisan migrate ```
+- Create seeder ``` php artisan make:seeder {seederName}Seeder ``` 
+- Seed DB ``` php artisan DB:seed ```
 
 Насчёт защиты от SQL-инъекций и XSS не совсем понял как на неё сделать упор. Методы DB::INSERT/UPDATE делаются через mysql PDO, считай само. 
 XSS атаки блокируются тегами Blade {{}}. Никакой отдельной работы делать не пришлось или же я не понял задание.
