@@ -3,7 +3,7 @@
 ## Задание: https://www.evernote.com/l/AL7WZoZ6SDFGH6BJ-5QoyAN2KianRLsKKvg 
 
 ## БД развернута на докере: https://hub.docker.com/_/mysql
-## Do not forget
+Штуки в ларавеле
 ### From project directory
 - Get composer in folder, get rid of ``` composer-setup.php ```
 - Install laravel after getting composer.phar  ``` php composer.phar global require laravel/installer ```  
