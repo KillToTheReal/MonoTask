@@ -53,3 +53,8 @@
     @endif
     
 @endsection
+
+<div id="app">
+    <hello-world/>
+</div>
+<script src="{{mix('js/app.js') }}"></script>
