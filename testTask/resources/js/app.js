@@ -1,6 +1,8 @@
 require('./bootstrap');
 import {createApp} from 'vue'
-import HelloWorld from './components/welcome.vue';
+import CarTable from './components/cartable.vue';
+import UserTable from './components/usertable.vue';
 const app = createApp({});
-app.component('hello-world',HelloWorld);
+app.component('cartable-comp', CarTable);
+app.component('usertable-comp',UserTable);
 app.mount('#app');

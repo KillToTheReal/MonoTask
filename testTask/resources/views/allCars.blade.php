@@ -9,29 +9,10 @@
 
 
 @if(count($data)> 0)
-    <h1> Cars on parking </h1>
-    <table class="table table-dark">
-        <tr>
-            <th>Car ID</th>
-            <th>Car Brand</th>
-            <th>Car Model</th>
-            <th>License Plate Number</th>
-            <th>Owner Name</th>
-            <th>Delete car</th>
-        </tr>
-    @foreach($data as $el)
-        <tr>
-        @foreach($el as $col)
-        <td> 
-            {{$col}} 
-        </td>
-        @endforeach     
-        <td>
-            <a href="/deleteCar/{{$el['car_id']}}" class="btn btn-danger"><i class="fa fa-ban"></i> Delete</a> 
-        </td>
-        </tr>
-    @endforeach
-    </table>
+    <div id="app">
+        <cartable-comp :mydata="{{json_encode($data)}}"></cartable-comp>
+    </div>
+
     @if($btns > 1)
     <ul class="pagination">
         <li class="page-item"><a class="page-link" href="/allCars/{{$prev}}">Previous</a></li>
