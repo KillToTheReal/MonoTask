@@ -18,6 +18,9 @@
             </ul>
         </div>
 @endif
+    <div id="app">
+        <addcar-form :clients="{{json_encode($cl)}}"></addcar-form>
+    </div>
 
     <form method="post" class="bg-6 md-6 sm-6" action="/addCar" id="userForm">
         @csrf
