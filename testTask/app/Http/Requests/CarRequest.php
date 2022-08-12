@@ -24,7 +24,12 @@ class CarRequest extends FormRequest
     public function rules()
     {
         return [
-            'plate_num' => ['min:6', 'max:6', 'unique:cars'],
+            "brand" => "required",
+            "model" => "required",
+            "color" => "required",
+            "on_parking" => "required",
+            "client_id" => "required",
+            'plate_num' => 'min:6 | max:6 | unique:cars',
         ];
     }
 }
