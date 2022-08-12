@@ -6,7 +6,10 @@
 
 
 @section('content')
-<h1> Add new Client </h1>
+<div id="app">
+    <addclient-form></addclient-form>
+</div>
+<!-- <h1> Add new Client </h1>
 @if($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -94,5 +97,5 @@
             "<h4> License plate number </h4>  <input id=\"License"+number+"\" type = \"text\" required name = \"plate_num[]\" class=\"form-control\">"+
             "<h4>At parking?</h4> <select class=\"form-select\" id=\"on_parking"+number+"\" name=\"on_parking[]\"> <option value=\"1\" selected>In</option><option value=\"0\">Out</option> </select>";
         }
-    </script>
+    </script> -->
 @endsection

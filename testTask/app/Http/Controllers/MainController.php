@@ -10,9 +10,9 @@ class MainController extends Controller
 
 
 
-   
+
     public function main($page = 1)
-    {   
+    {
         //Размер страницы для пагинации
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
@@ -36,29 +36,33 @@ class MainController extends Controller
     }
 
     public function addClient(Request $req){
-        $nr = '[a-zA-Zа-яА-Я]';
 
+
+        $nr = '[a-zA-Zа-яА-Я]';
+        $client = $req->input('user');
         $valid = $req->validate([
-            'plate_num' => 'unique:cars',
-            'full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
-            'phone_num' => 'regex:/\+7([0-9]){10}/ | unique:clients',
+            'user.full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
+            'user.phone_num' => 'regex:/\+7([0-9]){10}/ | unique:clients,phone_num',
+
+            'cars.*.plate_num' => 'unique:cars,plate_num|min:6|max:6',
         ]);
-        
-        $full_name = $req->input('full_name');
-        $phone_num = $req->input('phone_num');
-        $gender = $req->input('gender');
-        $address = $req->input('address');
+        $full_name = $client["full_name"];
+        $phone_num = $client['phone_num'];
+        $gender = $client['gender'];
+        $address = $client['address'];
         DB::insert("INSERT INTO clients(full_name,phone_num,gender,address) VALUES (?,?,?,?)",[$full_name,$phone_num,$gender,$address]);
         $client_id = DB::select('SELECT client_id from clients order by client_id desc limit 1')[0]->client_id;
 
-        
-        for($i = 0; $i <(int)$req->input('formsAmount');$i++)
+        $cars = $req->input('cars');
+//        dd($cars);
+        foreach($cars as $key => $val)
         {
-            $color = $req->input("color")[$i];
-            $model = $req->input("model")[$i];
-            $brand = $req->input("brand")[$i];
-            $plate_num = $req->input("plate_num")[$i];
-            $on_parking = $req->input("on_parking")[$i];
+            print_r($key);
+            $color = $cars[$key]['color'];
+            $model = $cars[$key]['model'];
+            $brand = $cars[$key]['brand'];
+            $plate_num = $cars[$key]['plate_num'];
+            $on_parking = $cars[$key]['on_parking'];
             DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
         }
         return Redirect::to(url()->previous());
@@ -69,7 +73,7 @@ class MainController extends Controller
         $valid = $req->validate([
             'full_name' => 'min:3 | max:100',
             'phone_num' => 'regex:/(\+7[0-9]{10}){1}/',
-            
+
         ]);
 
         $name = $req->input('full_name');
@@ -78,7 +82,7 @@ class MainController extends Controller
         $address = $req->input('address');
         $id = $req->input('client_id');
 
-        DB::update("UPDATE clients SET full_name = ?, phone_num = ?, gender=?,address=? 
+        DB::update("UPDATE clients SET full_name = ?, phone_num = ?, gender=?,address=?
         WHERE client_id=?",[$name,$phone,$gender,$address,$id]);
 
         return Redirect::to(url()->previous());
@@ -97,6 +101,6 @@ class MainController extends Controller
         return redirect('/1');
     }
 
-    
+
 
 }
