@@ -38,7 +38,7 @@ class MainController extends Controller
     public function addClient(Request $req){
 
 
-        $nr = '[a-zA-Zа-яА-Я]';
+        $nr = '[a-zA-Zа-яА-Я0-9]';
         $client = $req->input('user');
         $valid = $req->validate([
             'user.full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
@@ -70,22 +70,23 @@ class MainController extends Controller
 
     public function updateClient(Request $req)
     {
+        $nr = '[a-zA-Zа-яА-Я0-9]';
+        $client = $req->input('user');
+        $client_id = $client['client_id'];
         $valid = $req->validate([
-            'full_name' => 'min:3 | max:100',
-            'phone_num' => 'regex:/(\+7[0-9]{10}){1}/',
-
+            'user.full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
+            'user.phone_num' => "regex:/\+7([0-9]){10}/ | unique:clients,phone_num,$client_id,client_id",
         ]);
+        $name = $client["full_name"];
+        $phone = $client['phone_num'];
+        $gender = $client['gender'];
+        $address = $client['address'];
 
-        $name = $req->input('full_name');
-        $phone = $req->input('phone_num');
-        $gender = $req->input('gender');
-        $address = $req->input('address');
-        $id = $req->input('client_id');
 
         DB::update("UPDATE clients SET full_name = ?, phone_num = ?, gender=?,address=?
-        WHERE client_id=?",[$name,$phone,$gender,$address,$id]);
+        WHERE client_id=?",[$name,$phone,$gender,$address,$client_id]);
 
-        return Redirect::to(url()->previous());
+        return $this->updateClientPage($client_id);
     }
 
     public function updateClientPage($id)
