@@ -84,9 +84,4 @@
 {{--    </form>--}}
 
 @endsection
-<script>
-    import Updateuserform from "../js/components/updateuserform";
-    export default {
-        components: {Updateuserform}
-    }
-</script>
+

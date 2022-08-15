@@ -41,8 +41,8 @@ class MainController extends Controller
         $nr = '[a-zA-Zа-яА-Я0-9]';
         $client = $req->input('user');
         $valid = $req->validate([
-            'user.full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
-            'user.phone_num' => 'regex:/\+7([0-9]){10}/ | unique:clients,phone_num',
+            'user.full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*$/",
+            'user.phone_num' => 'regex:/\+7([0-9]){10}$/ | unique:clients,phone_num',
 
             'cars.*.plate_num' => 'unique:cars,plate_num|min:6|max:6',
         ]);
@@ -74,8 +74,8 @@ class MainController extends Controller
         $client = $req->input('user');
         $client_id = $client['client_id'];
         $valid = $req->validate([
-            'user.full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*/",
-            'user.phone_num' => "regex:/\+7([0-9]){10}/ | unique:clients,phone_num,$client_id,client_id",
+            'user.full_name' => "min:3 | max:100 | regex:/$nr+\s+$nr+\s+$nr+\s*$/",
+            'user.phone_num' => "regex:/\+7([0-9]){10}$/ | unique:clients,phone_num,$client_id,client_id",
         ]);
         $name = $client["full_name"];
         $phone = $client['phone_num'];

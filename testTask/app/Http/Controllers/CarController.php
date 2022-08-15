@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 class CarController extends Controller
 {
     public function changeParking(Request $req)
-    {   
+    {
         $valid = $req->validate([
             'client_id' =>'required',
             'car_id' =>'required',
-            
+
         ]);
         $carId = $req->input('car_id');
         DB::update("UPDATE cars SET on_parking = NOT on_parking WHERE car_id = $carId ");
@@ -19,7 +19,7 @@ class CarController extends Controller
     }
 
     public function allCars($page = 1)
-    { 
+    {
         $user_list = DB::select("SELECT client_id,full_name from clients order by client_id");
         $pageSize = 5;
         $offset = $pageSize * ($page - 1);
@@ -44,7 +44,7 @@ class CarController extends Controller
 
     public function addCar(Request $req){
         $valid = $req->validate([
-          
+
             'plate_num' => 'unique:cars',
         ]);
 
@@ -58,15 +58,20 @@ class CarController extends Controller
         return Redirect::to(url()->previous());
     }
 
-    
+
     public function updateCar(Request $req)
     {
-        $color = $req->input('color');
-        $model = $req->input('model');
-        $brand = $req->input('brand');
-        $plate_num = $req->input('plate_num');
-        $on_parking = $req->input('on_parking');
-        $id = $req->input('car_id');
+        $car = $req->input('car');
+        $id = $car['car_id'];
+        $valid = $req->validate([
+            'car.plate_num' =>'min:6 | max: 6 |unique:cars,plate_num,'.$id.',car_id',
+
+        ]);
+        $color = $car['color'];
+        $model = $car['model'];
+        $brand = $car['brand'];
+        $plate_num = $car['plate_num'];
+        $on_parking = $car['on_parking'];
         DB::update("UPDATE cars SET color = ?, model = ?, brand= ?,plate_num=?,on_parking = ? WHERE car_id=?",[$color,$model,$brand,$plate_num,$on_parking,$id]);
         return Redirect::to(url()->previous());
     }
@@ -78,7 +83,7 @@ class CarController extends Controller
     }
 
     public function fetch(Request $req)
-    { 
+    {
         $select  = $req->get('select');
         $value  = $req->get('value');
         $data = DB::select("SELECT * FROM cars WHERE $select = $value");

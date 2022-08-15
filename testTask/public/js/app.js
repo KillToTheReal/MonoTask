@@ -19628,6 +19628,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      cars: this.mydata[0],
       user: {
         client_id: this.mydata[0][0]['client_id'],
         full_name: this.mydata[0][0]['full_name'],
@@ -19636,7 +19637,8 @@ __webpack_require__.r(__webpack_exports__);
         address: this.mydata[0][0]['address']
       },
       errors: {},
-      success: ''
+      success: '',
+      newCarfields: {}
     };
   },
   props: ['mydata'],
@@ -19657,6 +19659,45 @@ __webpack_require__.r(__webpack_exports__);
         if (error.response.status == 422) {
           _this.errors = error.response.data.errors;
         }
+      });
+    },
+    submitCar: function submitCar(carId) {
+      var _this2 = this;
+
+      var carToSend = this.cars.find(function (car) {
+        return car.car_id == carId;
+      });
+      console.log(carToSend);
+      axios.post('/updateCar', {
+        car: carToSend
+      }).then(function (response) {
+        _this2.errors = {};
+        _this2.success = "User updated successfully";
+      })["catch"](function (error) {
+        _this2.success = "";
+        console.log(_this2.fields);
+        console.log(_this2.errors);
+
+        if (error.response.status == 422) {
+          _this2.errors = error.response.data.errors;
+        }
+      });
+    },
+    newCar: function newCar() {
+      var _this3 = this;
+
+      axios.post('api/cars', this.newCarfields).then(function (response) {
+        _this3.success = "Car added succesfully!";
+        _this3.newCarfields = {};
+        _this3.errors = {};
+      })["catch"](function (error) {
+        console.log(_this3.newCarfields);
+
+        if (error.response.status == 422) {
+          _this3.errors = error.response.data.errors;
+        }
+
+        console.log(_this3.errors);
       });
     }
   }
@@ -20299,69 +20340,147 @@ var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_16 = {
-  method: "post",
-  action: "/updateCar"
-};
-var _hoisted_17 = ["value"];
+var _hoisted_16 = ["onSubmit"];
+var _hoisted_17 = ["onUpdate:modelValue"];
 
 var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Brand", -1
 /* HOISTED */
 );
 
-var _hoisted_19 = ["value"];
+var _hoisted_19 = ["onUpdate:modelValue"];
 
 var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Model", -1
 /* HOISTED */
 );
 
-var _hoisted_21 = ["value"];
+var _hoisted_21 = ["onUpdate:modelValue"];
 
 var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Color", -1
 /* HOISTED */
 );
 
-var _hoisted_23 = ["value"];
+var _hoisted_23 = ["onUpdate:modelValue"];
 
 var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Licence plate number", -1
 /* HOISTED */
 );
 
-var _hoisted_25 = ["value"];
+var _hoisted_25 = ["onUpdate:modelValue"];
+var _hoisted_26 = {
+  key: 0,
+  "class": "alert alert-danger"
+};
 
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "At parking?", -1
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "At parking?", -1
 /* HOISTED */
 );
 
-var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-  "class": "form-select",
-  required: "",
-  name: "on_parking",
-  id: "on_parking"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  selected: "",
+var _hoisted_28 = ["onUpdate:modelValue"];
+
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "1"
-}, "In"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+}, "In", -1
+/* HOISTED */
+);
+
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: "0"
-}, " Out")], -1
+}, " Out", -1
 /* HOISTED */
 );
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+var _hoisted_31 = [_hoisted_29, _hoisted_30];
+
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
 /* HOISTED */
 );
 
-var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "btn btn-warning"
 }, "Update car data", -1
 /* HOISTED */
 );
 
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
+var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("hr", null, null, -1
 /* HOISTED */
 );
 
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Brand", -1
+/* HOISTED */
+);
+
+var _hoisted_36 = {
+  key: 0,
+  "class": "alert alert-danger"
+};
+
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Model", -1
+/* HOISTED */
+);
+
+var _hoisted_38 = {
+  key: 1,
+  "class": "alert alert-danger"
+};
+
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Color", -1
+/* HOISTED */
+);
+
+var _hoisted_40 = {
+  key: 2,
+  "class": "alert alert-danger"
+};
+
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Licence plate number", -1
+/* HOISTED */
+);
+
+var _hoisted_42 = {
+  key: 3,
+  "class": "alert alert-danger"
+};
+
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "At parking?", -1
+/* HOISTED */
+);
+
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "1"
+}, "In", -1
+/* HOISTED */
+);
+
+var _hoisted_45 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "0"
+}, "Out", -1
+/* HOISTED */
+);
+
+var _hoisted_46 = [_hoisted_44, _hoisted_45];
+
+var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, " Owner ", -1
+/* HOISTED */
+);
+
+var _hoisted_48 = ["value"];
+
+var _hoisted_49 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_50 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  type: "submit",
+  "class": "btn btn-warning"
+}, "Send your form", -1
+/* HOISTED */
+);
+
+var _hoisted_51 = {
+  key: 4,
+  "class": "alert alert-success"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     method: "POST",
@@ -20434,63 +20553,178 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* HYDRATE_EVENTS */
   ), $data.success ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.success), 1
   /* TEXT */
-  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_15, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.mydata, function (user) {
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_15, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.cars, function (car) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      key: user
-    }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(user, function (prop) {
-      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-        key: prop
-      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        type: "hidden",
-        value: prop['car_id'],
-        name: "car_id",
-        id: "car_id"
-      }, null, 8
-      /* PROPS */
-      , _hoisted_17), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        type: "text",
-        value: prop['brand'],
-        required: "",
-        name: "brand",
-        id: "brand",
-        "class": "form-control"
-      }, null, 8
-      /* PROPS */
-      , _hoisted_19), _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        type: "text",
-        value: prop['model'],
-        required: "",
-        name: "model",
-        id: "model",
-        "class": "form-control"
-      }, null, 8
-      /* PROPS */
-      , _hoisted_21), _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        type: "text",
-        value: prop['color'],
-        required: "",
-        name: "color",
-        id: "color",
-        "class": "form-control"
-      }, null, 8
-      /* PROPS */
-      , _hoisted_23), _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        type: "text",
-        value: prop['plate_num'],
-        placeholder: "Unique",
-        required: "",
-        name: "plate_num",
-        id: "plate_num",
-        "class": "form-control"
-      }, null, 8
-      /* PROPS */
-      , _hoisted_25), _hoisted_26, _hoisted_27, _hoisted_28, _hoisted_29, _hoisted_30])]);
-    }), 128
-    /* KEYED_FRAGMENT */
-    ))]);
+      key: car
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+      method: "post",
+      onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+        return $options.submitCar(_ctx.carId = car.car_id);
+      }, ["prevent"])
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      type: "hidden",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return car.car_id = $event;
+      },
+      name: "car_id",
+      id: "car_id"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_17), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, car.car_id]]), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      type: "text",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return car.brand = $event;
+      },
+      required: "",
+      name: "brand",
+      id: "brand",
+      "class": "form-control"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_19), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, car.brand]]), _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      type: "text",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return car.model = $event;
+      },
+      required: "",
+      name: "model",
+      id: "model",
+      "class": "form-control"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_21), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, car.model]]), _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      type: "text",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return car.color = $event;
+      },
+      required: "",
+      name: "color",
+      id: "color",
+      "class": "form-control"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_23), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, car.color]]), _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      type: "text",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return car.plate_num = $event;
+      },
+      placeholder: "Unique",
+      required: "",
+      name: "plate_num",
+      id: "plate_num",
+      "class": "form-control"
+    }, null, 8
+    /* PROPS */
+    , _hoisted_25), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, car.plate_num]]), $data.errors && $data.errors.plate_num ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.errors.car.plate_num[0]), 1
+    /* TEXT */
+    )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+      "class": "form-select",
+      "onUpdate:modelValue": function onUpdateModelValue($event) {
+        return car.on_parking = $event;
+      },
+      required: "",
+      name: "on_parking",
+      id: "on_parking"
+    }, _hoisted_31, 8
+    /* PROPS */
+    , _hoisted_28), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, car.on_parking]]), _hoisted_32, _hoisted_33, _hoisted_34], 40
+    /* PROPS, HYDRATE_EVENTS */
+    , _hoisted_16)]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))], 64
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    method: "POST",
+    onSubmit: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.newCar && $options.newCar.apply($options, arguments);
+    }, ["prevent"]))
+  }, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    required: "",
+    name: "brand",
+    id: "brand",
+    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+      return $data.newCarfields.brand = $event;
+    }),
+    "class": "form-control"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newCarfields.brand]]), $data.errors && $data.errors.brand ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.errors.brand[0]), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    required: "",
+    name: "model",
+    id: "model",
+    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+      return $data.newCarfields.model = $event;
+    }),
+    "class": "form-control"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newCarfields.model]]), $data.errors && $data.errors.model ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_38, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.errors.model[0]), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    required: "",
+    name: "color",
+    "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+      return $data.newCarfields.color = $event;
+    }),
+    id: "color",
+    "class": "form-control"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newCarfields.color]]), $data.errors && $data.errors.color ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_40, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.errors.color[0]), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    placeholder: "Unique",
+    "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
+      return $data.newCarfields.plate_num = $event;
+    }),
+    required: "",
+    name: "plate_num",
+    id: "plate_num",
+    "class": "form-control"
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.newCarfields.plate_num]]), $data.errors && $data.errors.plate_num ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.errors.plate_num[0]), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    required: "",
+    "class": "form-select",
+    name: "on_parking",
+    "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
+      return $data.newCarfields.on_parking = $event;
+    }),
+    id: "on_parking"
+  }, _hoisted_46, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.newCarfields.on_parking]]), _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    required: "",
+    "class": "form-select",
+    name: "client_id",
+    id: "client_id",
+    "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
+      return $data.newCarfields.client_id = $event;
+    })
+  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.clients, function (client) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      selected: "",
+      key: client,
+      value: client.client_id
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.full_name) + " - ID:" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(client.client_id), 9
+    /* TEXT, PROPS */
+    , _hoisted_48);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))], 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.newCarfields.client_id]]), _hoisted_49, _hoisted_50, $data.success ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_51, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.success), 1
+  /* TEXT */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 32
+  /* HYDRATE_EVENTS */
+  )], 64
   /* STABLE_FRAGMENT */
   );
 }
