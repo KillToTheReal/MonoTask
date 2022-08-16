@@ -14,8 +14,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/paginate.css')}}" type="text/css">
-  </head> 
-</head>
+  </head>
 <body class="bg-dark text-white">
     <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom text-white">
       <a href="/1" class="d-flex align-items-center text-white text-decoration-none">

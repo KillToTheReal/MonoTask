@@ -9,6 +9,7 @@ import AddClientForm from './components/addclientform.vue';
 import Updateuserform from "./components/updateuserform.vue";
 import Addcarinclient from "./components/addcarinclient.vue";
 import dependentselect from "./components/dependentselect.vue";
+
 const app = createApp({});
 app.component('cartable-comp', CarTable);
 app.component('usertable-comp',UserTable);
