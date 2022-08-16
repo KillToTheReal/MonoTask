@@ -19754,19 +19754,25 @@ __webpack_require__.r(__webpack_exports__);
       var carToSend = this.cars.find(function (car) {
         return car.car_id == carId;
       });
-      console.log(carToSend);
+      var carKey = Object.keys(this.cars).find(function (key) {
+        return _this2.cars[key]['car_id'] == carId;
+      });
       axios.post('/updateCar', {
         car: carToSend
       }).then(function (response) {
         _this2.errors = {};
         _this2.success = "Car " + carToSend.plate_num + " updated successfully";
+        _this2.cars[carKey]['errors'] = {};
         console.log(_this2.success);
       })["catch"](function (error) {
         _this2.success = "";
-        console.log(_this2.fields);
+        console.log(_this2.cars);
         console.log(_this2.errors);
 
         if (error.response.status == 422) {
+          console.log(carKey);
+          _this2.cars[carKey]['errors'] = error.response.data.errors;
+          console.log(_this2.cars[carKey]);
           _this2.errors = error.response.data.errors;
         }
       });
@@ -20763,6 +20769,9 @@ var _hoisted_33 = {
   key: 1,
   "class": "alert alert-success"
 };
+var _hoisted_34 = {
+  "class": "alert alert-danger"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     method: "POST",
@@ -20913,7 +20922,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* PROPS */
     , _hoisted_27), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, car.on_parking]]), _hoisted_31, _hoisted_32, $data.success && $data.success == 'Car ' + car.plate_num + ' updated successfully' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.success), 1
     /* TEXT */
-    )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 40
+    )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(car.errors, function (error) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(error), 1
+      /* TEXT */
+      );
+    }), 256
+    /* UNKEYED_FRAGMENT */
+    ))], 40
     /* PROPS, HYDRATE_EVENTS */
     , _hoisted_15)]);
   }), 128

@@ -41,6 +41,9 @@
             </select>
             <br><button  type="submit" class="btn btn-warning">Update car data</button>
             <div class="alert alert-success" v-if="success && success==('Car '+car.plate_num+' updated successfully')"> {{success}}</div>
+            <div class="alert alert-danger" v-for="error in car.errors">
+                {{error}}
+            </div>
         </form>
     </div>
 </template>
@@ -81,19 +84,24 @@ export default {
         },
         submitCar(carId){
             const carToSend = this.cars.find((car) => car.car_id == carId);
-            console.log(carToSend);
-
+            const carKey = Object.keys(this.cars).find(key => this.cars[key]['car_id'] == carId);
             axios.post('/updateCar', {
                car: carToSend
             }).then(response=>{
                 this.errors = {};
                 this.success = "Car "+carToSend.plate_num+" updated successfully";
+                this.cars[carKey]['errors'] = {}
                 console.log(this.success);
             }).catch(error=>{
                 this.success= "";
-                console.log(this.fields);
+                console.log(this.cars);
                 console.log(this.errors);
+
                 if(error.response.status == 422){
+                    console.log(carKey);
+                    this.cars[carKey]['errors'] = error.response.data.errors;
+                    console.log(this.cars[carKey]);
+
                     this.errors = error.response.data.errors;
                 }
             })
