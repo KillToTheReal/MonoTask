@@ -86,13 +86,8 @@ class CarController extends Controller
     {
         $select  = $req->get('select');
         $value  = $req->get('value');
-        $data = DB::select("SELECT * FROM cars WHERE $select = $value");
-        $output = '<option value =""> Select car </option>';
-        foreach($data as $row)
-        {
-            $on =  $row->on_parking == True ? "on parking" : "not on parking";
-            $output.='<option value ="'.$row->car_id.'"> Select car: '.$row->plate_num.' '.$row->color.' '.$row->brand.'. Currently '.$on.'</option>';
-        }
-        echo $output;
+
+        $data = DB::select("SELECT * FROM cars WHERE client_id = $value");
+        return json_encode($data);
     }
 }
