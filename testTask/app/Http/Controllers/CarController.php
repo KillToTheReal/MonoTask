@@ -9,13 +9,11 @@ class CarController extends Controller
     public function changeParking(Request $req)
     {
         $valid = $req->validate([
-            'client_id' =>'required',
             'car_id' =>'required',
-
         ]);
         $carId = $req->input('car_id');
         DB::update("UPDATE cars SET on_parking = NOT on_parking WHERE car_id = $carId ");
-        return Redirect::to(url()->previous());
+        return Redirect::to('/allCars/1');
     }
 
     public function allCars($page = 1)
@@ -57,7 +55,6 @@ class CarController extends Controller
         DB::insert("INSERT INTO cars(color,model,brand,plate_num,on_parking,client_id) VALUES (?,?,?,?,?,?)",[$color,$model,$brand,$plate_num,$on_parking,$client_id]);
         return Redirect::to(url()->previous());
     }
-
 
     public function updateCar(Request $req)
     {

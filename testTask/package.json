@@ -17,6 +17,7 @@
         "vue-loader": "^17.0.0"
     },
     "dependencies": {
+        "@vueform/multiselect": "^2.5.2",
         "bootstrap": "^5.2.0",
         "vform": "^2.1.2",
         "vue": "^3.2.37",

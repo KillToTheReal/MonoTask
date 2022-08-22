@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\{DB,Redirect};
 class MainController extends Controller
 {
 
-
-
-
     public function main($page = 1)
     {
         //Размер страницы для пагинации

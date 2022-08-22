@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@vueform/multiselect": "^2.5.2",
     "vue-multiselect": "^2.1.6"
   }
 }
