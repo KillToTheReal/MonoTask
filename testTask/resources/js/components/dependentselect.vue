@@ -78,3 +78,4 @@ export default {
 </script>
 <style src="@vueform/multiselect/themes/default.css"></style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+

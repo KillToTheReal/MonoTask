@@ -11,7 +11,7 @@ class MainController extends Controller
     public function main($page = 1)
     {
         //Размер страницы для пагинации
-        $pageSize = 5;
+        $pageSize = 10;
         $offset = $pageSize * ($page - 1);
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
         $fulldata = DB::select("select COUNT(*) as count from clients join cars on clients.client_id = cars.client_id")[0]->count;
