@@ -25,7 +25,7 @@ class CarController extends Controller
         //Запрос создающий таблицу в стиле той что с картинки в примерах. Работа с жсоном здесь потому что была проблема с выводом русских букв
         $data = DB::select("SELECT  cars.car_id, cars.brand, cars.model, cars.plate_num, clients.full_name FROM
         clients JOIN cars ON clients.client_id = cars.client_id
-        WHERE cars.on_parking = 1 ORDER BY clients.client_id asc LIMIT $offset,$pageSize");
+        WHERE cars.on_parking = 1 ORDER BY cars.car_id asc LIMIT $offset,$pageSize");
 
         $btnsAmount = $fulldata % $pageSize == 0 ? ceil($fulldata / $pageSize):(int)($fulldata / $pageSize);
         $inc = DB::select('SELECT client_id + 1 as next_id from clients order by client_id desc limit 1');

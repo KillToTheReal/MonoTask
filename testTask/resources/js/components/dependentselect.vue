@@ -1,28 +1,4 @@
 <template>
-<!--    <h3> Change car parking status</h3>-->
-<!--    <form method="POST" @submit.prevent="changeStatus(this.selectedCar)">-->
-<!--        <div class="form-group">-->
-<!--            <h4> Client </h4>-->
-<!--            <select required v-model="selectedClass" class="form-control">-->
-<!--                <option disabled value="-1">Select client</option>-->
-<!--                <option v-for="client in clients" :key="client.client_id" :value="client.client_id">-->
-<!--                    {{ client.client_id }}. {{ client.full_name }}-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <h4> Client car</h4>-->
-<!--            <select required v-model="selectedCar" class="form-control">-->
-<!--                <option value="-1" disabled> Select car</option>-->
-<!--                <option v-for="car in cars" :key="car.car_id" :value="car.car_id">{{ car.car_id }}: {{ car.color }}-->
-<!--                    {{ car.brand }} {{ car.model }} {{ car.plate_num }}-->
-<!--                    {{ car.on_parking ? "On parking" : "Not on parking" }}-->
-<!--                </option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <button type="submit" class="btn btn-warning">Change car status</button>-->
-<!--    </form>-->
 
     <h3>Change car parking status</h3>
     <form method="POST" @submit.prevent="changeStatus(value=this.selectedCar)">
@@ -54,7 +30,6 @@ export default {
     mounted() {
         axios.get('/api/clients').then(
             response => {
-                console.log(this);
                 this.clients = response.data.data;
                 const clients = this.clients;
                 let options = {};
@@ -92,7 +67,6 @@ export default {
     methods: {
        changeStatus(value){
             axios.post('/changeParking',{car_id:value}).then(response=>{
-                console.log(this);
                 this.selectedCar = '';
                 window.location.reload();
             }).catch(error=>{
