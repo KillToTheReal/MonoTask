@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 //Добавление клиента
 Route::get('/getUsers', 'App\Http\Controllers\MainController@getUsers')->name('getUsers');
+Route::get('/getCars', 'App\Http\Controllers\CarController@getCars')->name('getCars');
 
 Route::get('/addUserPage', 'App\Http\Controllers\MainController@addUserPage')->name('addUserPage');
 //Метод формы выше

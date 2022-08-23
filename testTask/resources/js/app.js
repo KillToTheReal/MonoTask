@@ -10,6 +10,7 @@ import Updateuserform from "./components/updateuserform.vue";
 import Addcarinclient from "./components/addcarinclient.vue";
 import dependentselect from "./components/dependentselect.vue";
 import infinitescroll from "./components/infinitescroll.vue";
+import infinitescroll_cars from "./components/infinitescroll_cars";
 
 const app = createApp({});
 app.component('cartable-comp', CarTable);
@@ -20,4 +21,5 @@ app.component('updateuser-form',Updateuserform);
 app.component('addcarinclient-form',Addcarinclient);
 app.component('dependentselect',dependentselect);
 app.component('infinitescroll',infinitescroll);
+app.component('infinitescroll_cars',infinitescroll_cars);
 app.mount('#app');

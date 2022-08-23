@@ -19,6 +19,7 @@
 {{--            @endfor--}}
 {{--            <li class="page-item"><a class="page-link" href="{{$next}}">Next</a></li>--}}
 {{--        </ul>--}}
+
         <infinitescroll></infinitescroll>
     </div>
 @endif

@@ -16,6 +16,13 @@ class CarController extends Controller
         return Redirect::to('/allCars/1');
     }
 
+    public function getCars(){
+        $data = DB::table('cars')
+            ->join('clients','cars.client_id','=','clients.client_id')
+            ->select('cars.car_id','cars.brand','cars.model','cars.plate_num','clients.full_name')->where('cars.on_parking','=','1')->offset(request('offset'))->limit(15)->get();
+        return $data;
+    }
+
     public function allCars($page = 1)
     {
         $user_list = DB::select("SELECT client_id,full_name from clients order by client_id");

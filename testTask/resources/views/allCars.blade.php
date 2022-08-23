@@ -10,17 +10,18 @@
 
 @if(count($data)> 0)
     <div id="app">
-        <cartable-comp :mydata="{{json_encode($data)}}"></cartable-comp>
-        @if($btns > 1)
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="/allCars/{{$prev}}">Previous</a></li>
-                @for($i = 1; $i <= $btns; $i++)
-                    <li class="page-item"><a class="page-link" href="/allCars/{{$i}}">{{$i}}</a></li>
-                @endfor
-                <li class="page-item"><a class="page-link" href="/allCars/{{$next}}">Next</a></li>
-            </ul>
-        @endif
+{{--        <cartable-comp :mydata="{{json_encode($data)}}"></cartable-comp>--}}
+{{--        @if($btns > 1)--}}
+{{--            <ul class="pagination">--}}
+{{--                <li class="page-item"><a class="page-link" href="/allCars/{{$prev}}">Previous</a></li>--}}
+{{--                @for($i = 1; $i <= $btns; $i++)--}}
+{{--                    <li class="page-item"><a class="page-link" href="/allCars/{{$i}}">{{$i}}</a></li>--}}
+{{--                @endfor--}}
+{{--                <li class="page-item"><a class="page-link" href="/allCars/{{$next}}">Next</a></li>--}}
+{{--            </ul>--}}
+{{--        @endif--}}
         <dependentselect @update="updateHandler"></dependentselect>
+        <infinitescroll_cars></infinitescroll_cars>
     </div>
 
 
