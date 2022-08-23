@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\{DB,Redirect};
 class MainController extends Controller
 {
 
+
+    public function getUsers()
+    {
+        $data = DB::table('clients')
+            ->join('cars','cars.client_id','=','clients.client_id')
+            ->select('clients.client_id','clients.full_name','clients.phone_num','cars.brand','cars.plate_num','cars.on_parking','cars.car_id')->offset(request('offset'))->limit(15)->get();
+        return $data;
+    }
     public function main($page = 1)
     {
         //Размер страницы для пагинации

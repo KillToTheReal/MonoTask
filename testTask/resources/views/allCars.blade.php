@@ -20,7 +20,7 @@
                 <li class="page-item"><a class="page-link" href="/allCars/{{$next}}">Next</a></li>
             </ul>
         @endif
-        <dependentselect></dependentselect>
+        <dependentselect @update="updateHandler"></dependentselect>
     </div>
 
 
