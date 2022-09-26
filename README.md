@@ -15,6 +15,7 @@
 - Make DB tables from migration files ``` php artisan migrate ```
 - Create seeder ``` php artisan make:seeder {seederName}Seeder ``` 
 - Seed DB ``` php artisan DB:seed ```
+- Add Vue support to project https://levelup.gitconnected.com/how-to-set-up-and-use-vue-in-your-laravel-8-app-2dd0f174e1f8
 
 Насчёт защиты от SQL-инъекций и XSS не совсем понял как на неё сделать упор. Методы DB::INSERT/UPDATE делаются через mysql PDO, считай само. 
 XSS атаки блокируются тегами Blade {{}}. Никакой отдельной работы делать не пришлось или же я не понял задание.
