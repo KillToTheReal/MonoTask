@@ -5,6 +5,7 @@
 ## БД развернута на докере: https://hub.docker.com/_/mysql
 Штуки в ларавеле
 ### From project directory
+- Download composer .phar file https://getcomposer.org/download/
 - Get composer in folder, get rid of ``` composer-setup.php ```
 - Install laravel after getting composer.phar  ``` php composer.phar global require laravel/installer ```  
 - Create project ``` php composer.phar create-project --prefer-dist laravel/laravel {projectName} ```
